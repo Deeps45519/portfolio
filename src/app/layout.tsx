@@ -2,16 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Your Friend's Name",
+  title: "Deepika | Geopolitical Risk & Strategy",
   description:
-    "Political science, technology, regulation and strategy.",
+    "Shanmuga Sundaram Deepika — geopolitical risk, institutional strategy, research and regulated markets.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>{children}</body>
