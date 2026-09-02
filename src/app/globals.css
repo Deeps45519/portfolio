@@ -8,9 +8,11 @@
   --muted: #6f6d66;
   --faint: #9b988f;
   --line: #dcd9d1;
+
   --green: #b8d88f;
   --blue: #d9e6f2;
   --sand: #ece7d9;
+
   --serif: Georgia, "Times New Roman", serif;
   --sans: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -42,35 +44,45 @@ main {
   margin: 0 auto;
 }
 
+
+/* =========================
+   TOP BAR
+========================= */
+
 .topbar {
   min-height: 64px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .cv-link {
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: transform 160ms ease;
-}
 
-.top-location {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.04em;
+  transition: transform 160ms ease;
 }
 
 .cv-link:hover {
   transform: translate(2px, -2px);
 }
 
+.top-location {
+  color: var(--muted);
 
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================
+   HERO
+========================= */
 
 .hero {
   padding: 92px 8px 48px;
-  border-bottom: 1px solid var(--line);
 }
 
 .hero-inner {
@@ -81,73 +93,13 @@ main {
   min-width: 0;
 }
 
-.eyebrow {
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-.hero h1 {
-  width: 100%;
-  max-width: 780px;
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(48px, 14vw, 68px);
-  line-height: 0.96;
-  font-weight: 400;
-  letter-spacing: -0.04em;
-}
-
-.hero-deck {
-  max-width: 480px;
-  margin: 22px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-.hero-portrait {
-  width: min(78vw, 320px);
-  margin: 42px auto 0;
-}
-
-.portrait-frame {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: #efeee8;
-}
-
-.portrait-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 500ms ease;
-}
-
-.hero-portrait:hover .portrait-image {
-  transform: scale(1.015);
-}
-
-
-/*Hero Section*/
-
-
-
-.hero-inner {
-  width: 100%;
-}
-
 .eyebrow,
 .section-label,
 .item-meta {
   margin: 0;
+
   color: var(--muted);
+
   font-family: var(--sans);
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -160,49 +112,408 @@ main {
 
 .hero h1 {
   width: 100%;
-  max-width: 980px;
+  max-width: 780px;
+
   margin: 0;
+
   font-family: var(--serif);
-  font-size: clamp(46px, 8vw, 74px);
-  line-height: 0.98;
+  font-size: clamp(48px, 14vw, 68px);
+  line-height: 0.96;
   font-weight: 400;
   letter-spacing: -0.04em;
 }
 
 .hero-deck {
   max-width: 480px;
+
   margin: 22px 0 0;
+
   color: var(--muted);
+
   font-size: 12px;
   line-height: 1.7;
 }
 
 
+/* Hero rotating text */
+
+.paragraph-shift {
+  min-height: 7.5em;
+
+  transition:
+    opacity 450ms ease,
+    filter 450ms ease,
+    transform 450ms ease;
+}
+
+.paragraph-shift.is-transitioning {
+  opacity: 0.78;
+  filter: blur(0.2px);
+  transform: translateY(1px);
+}
+
+.hero-paragraph {
+  margin: 0;
+}
+
+.hero-bullets {
+  display: grid;
+  gap: 7px;
+}
+
+.hero-bullet {
+  display: grid;
+  grid-template-columns: 13px minmax(0, 1fr);
+  gap: 6px;
+
+  align-items: start;
+}
+
+.hero-bullet span {
+  color: var(--faint);
+  line-height: 1.7;
+}
+
+.hero-bullet p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+
+/* Hero portrait */
+
+.hero-portrait {
+  width: min(78vw, 320px);
+  margin: 42px auto 0;
+}
+
+.portrait-frame {
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  background: #efeee8;
+}
+
+.portrait-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 500ms ease;
+}
+
+.hero-portrait:hover .portrait-image {
+  transform: scale(1.015);
+}
+
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
 
 .section {
   padding: 82px 8px;
+
   border-bottom: 1px solid var(--line);
 }
 
 .section-label {
   margin-bottom: 34px;
+
   font-size: 9px;
 }
 
+
+/* =========================
+   RESEARCH PAPERS
+========================= */
+
 .paper-list {
   display: grid;
-  gap: 30px;
+  gap: 20px;
 }
+
+.paper-static {
+  padding: 12px 0 10px;
+}
+
+
+/* Entire research entry */
+
+.paper-entry {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 16px;
+
+  align-items: start;
+}
+
+.paper-number {
+  padding-top: 17px;
+
+  color: var(--muted);
+
+  font-size: 9px;
+  line-height: 1;
+}
+
+
+/* Native details element */
+
+.paper-accordion {
+  min-width: 0;
+}
+
+
+/* Clickable research heading */
+
+.paper-summary {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  gap: 18px;
+
+  align-items: start;
+
+  padding: 14px 0 16px;
+
+  cursor: pointer;
+  list-style: none;
+}
+
+.paper-summary::-webkit-details-marker {
+  display: none;
+}
+
+.paper-heading {
+  min-width: 0;
+}
+
+.paper-heading .item-meta {
+  margin: 0 0 8px;
+
+  color: var(--muted);
+
+  font-size: 7px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+}
+
+
+/* Research title */
+
+.paper-heading h2 {
+  max-width: 760px;
+
+  margin: 0;
+
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+
+  text-wrap: balance;
+}
+
+
+/* Quiet contextual line underneath */
+
+.paper-subline {
+  max-width: 650px;
+
+  margin: 9px 0 0;
+
+  color: var(--faint);
+
+  font-size: 9px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+
+/* Plus button */
+
+.paper-toggle {
+  position: relative;
+
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: transparent;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+/* horizontal line */
+.paper-toggle::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 8px;
+  height: 1px;
+
+  background: var(--muted);
+
+  transform: translate(-50%, -50%);
+}
+
+/* vertical line */
+.paper-toggle::after {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 1px;
+  height: 8px;
+
+  background: var(--muted);
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.paper-summary:hover .paper-toggle {
+  background: #f1efe8;
+  border-color: #cbc8bf;
+}
+
+/* When open, remove vertical line = minus */
+.paper-accordion[open] .paper-toggle::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
+
+.paper-summary:hover .paper-toggle {
+  color: var(--ink);
+
+  background: #f1efe8;
+  border-color: #cbc8bf;
+}
+
+
+/* Slightly soften title interaction */
+
+.paper-summary .paper-heading {
+  transition: opacity 180ms ease;
+}
+
+.paper-summary:hover .paper-heading {
+  opacity: 0.78;
+}
+
+.paper-accordion[open] .paper-heading {
+  opacity: 1;
+}
+
+
+/* Expanded information */
+
+.paper-expanded {
+  max-width: 700px;
+
+  margin: 14px 46px 8px 0;
+  padding: 0;
+
+  background: transparent;
+
+  animation: paperReveal 260ms ease both;
+}
+
+@keyframes paperReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Context / supervision rows */
+
+.paper-expanded-row {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 20px;
+
+  align-items: baseline;
+}
+
+.paper-expanded-row + .paper-expanded-row {
+  margin-top: 10px;
+}
+
+.paper-expanded-row > span {
+  color: var(--faint);
+
+  font-size: 7px;
+  line-height: 1.5;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+.paper-expanded-row > p {
+  margin: 0;
+
+  max-width: 590px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+
+/* =========================
+   SPEAKING
+========================= */
+
+/*
+  Speaking still uses your existing
+  list-card structure.
+*/
 
 .list-card {
   display: grid;
-  grid-template-columns: 26px 1fr 34px;
+  grid-template-columns: 26px minmax(0, 1fr) 32px;
   gap: 14px;
+
   align-items: center;
 }
 
 .item-no {
   color: var(--muted);
+
   font-size: 10px;
 }
 
@@ -212,41 +523,58 @@ main {
 
 .item-meta {
   margin-bottom: 7px;
+
   font-size: 7px;
 }
 
 .list-card h2 {
   max-width: 720px;
+
   margin: 0;
+
   font-family: var(--serif);
-  font-size: 18px;
-  line-height: 1.12;
+  font-size: 16px;
+  line-height: 1.15;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
 .round-link {
   width: 32px;
   height: 32px;
+
   padding: 0;
+
   display: grid;
   place-items: center;
+
   border: 1px solid var(--line);
   border-radius: 50%;
+
   background: transparent;
+
   cursor: pointer;
-  transition: background 160ms ease, transform 160ms ease;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
 }
 
 .round-link span {
   display: block;
+
   line-height: 1;
+
   transform: translateY(-0.5px);
+
   transition: transform 160ms ease;
 }
 
 .round-link:hover {
   background: var(--green);
+  border-color: transparent;
+
   transform: rotate(45deg);
 }
 
@@ -254,8 +582,21 @@ main {
   transform: rotate(-45deg) translateY(-0.5px);
 }
 
+.speaking-section {
+  margin-inline: -14px;
+  padding-inline: 22px;
+
+  background: #f4f1e9;
+}
+
+
+/* =========================
+   HOW I THINK / VISUAL
+========================= */
+
 .visual-section {
   padding: 96px 8px 104px;
+
   border-bottom: 1px solid var(--line);
 }
 
@@ -265,7 +606,9 @@ main {
 
 .thinking-intro {
   max-width: 520px;
+
   margin: 0 auto 36px;
+
   text-align: center;
 }
 
@@ -275,6 +618,7 @@ main {
 
 .thinking-intro h2 {
   margin: 0;
+
   font-family: var(--serif);
   font-size: 28px;
   line-height: 1.08;
@@ -284,32 +628,44 @@ main {
 
 .thinking-intro > p:last-child {
   max-width: 430px;
+
   margin: 14px auto 0;
+
   color: var(--muted);
+
   font-size: 11px;
   line-height: 1.65;
 }
 
 .landscape-wrap {
   max-width: 620px;
+
   margin: 0 auto;
 }
 
 .landscape {
   width: 100%;
+
   display: block;
+
   overflow: visible;
 }
 
+
+/* Floating illustration */
+
 .floating-map {
   transform-origin: 260px 200px;
+
   animation: mapFloat 6.5s ease-in-out infinite;
 }
 
 @keyframes mapFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -317,6 +673,7 @@ main {
 
 .base-plane {
   fill: #f5f3ed;
+
   stroke: #5e5c57;
   stroke-width: 1;
 }
@@ -361,9 +718,11 @@ main {
 
 .decision-path {
   fill: none;
+
   stroke: #5c5a55;
   stroke-width: 1.1;
   stroke-dasharray: 5 6;
+
   animation: pathFlow 7s linear infinite;
 }
 
@@ -375,10 +734,13 @@ main {
 
 .node {
   fill: var(--green);
+
   stroke: #4d4b47;
   stroke-width: 0.8;
+
   transform-origin: center;
   transform-box: fill-box;
+
   animation: nodePulse 2.6s ease-in-out infinite;
 }
 
@@ -388,6 +750,7 @@ main {
 
 .node-c {
   fill: var(--blue);
+
   animation-delay: 0.9s;
 }
 
@@ -400,9 +763,11 @@ main {
 }
 
 @keyframes nodePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(0.9);
   }
+
   50% {
     transform: scale(1.3);
   }
@@ -419,19 +784,20 @@ main {
 
 .map-label text {
   fill: #77746d;
+
   font-family: var(--sans);
   font-size: 7px;
   letter-spacing: 1.1px;
 }
 
-.speaking-section {
-  background: #f4f1e9;
-  margin-inline: -14px;
-  padding-inline: 22px;
-}
+
+/* =========================
+   CONTACT
+========================= */
 
 .contact {
   padding: 88px 8px 96px;
+
   border-bottom: 1px solid var(--line);
 }
 
@@ -442,7 +808,9 @@ main {
 
 .contact-copy {
   max-width: 520px;
+
   margin: 0;
+
   font-family: var(--serif);
   font-size: 24px;
   line-height: 1.15;
@@ -452,28 +820,110 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
+
   margin-top: 24px;
 }
 
 .contact-links a {
   padding-bottom: 4px;
-  border-bottom: 1px solid var(--ink);
+
   font-size: 10px;
-  transition: transform 160ms ease;
+
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 }
 
 .contact-links a:hover {
+  opacity: 0.65;
+
   transform: translate(2px, -2px);
 }
 
+
+/* =========================
+   FOOTER
+========================= */
+
 footer {
   min-height: 72px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
   color: var(--muted);
+
   font-size: 9px;
 }
+
+
+/* =========================
+   MOBILE RESEARCH
+========================= */
+
+@media (max-width: 719px) {
+  .paper-list {
+    gap: 26px;
+  }
+
+  .paper-entry {
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .paper-number {
+    padding-top: 16px;
+
+    font-size: 8px;
+  }
+
+  .paper-summary {
+    grid-template-columns: minmax(0, 1fr) 26px;
+    gap: 10px;
+
+    padding-top: 13px;
+  }
+
+  .paper-heading h2 {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  .paper-subline {
+    font-size: 8px;
+  }
+
+  .paper-toggle {
+    width: 26px;
+    height: 26px;
+
+    font-size: 12px;
+  }
+
+  .paper-expanded {
+    margin-right: 0;
+    padding: 16px;
+  }
+
+  .paper-expanded-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .paper-expanded-row + .paper-expanded-row {
+    margin-top: 13px;
+  }
+
+  .paper-expanded-row > p {
+    font-size: 9px;
+  }
+}
+
+
+/* =========================
+   TABLET
+========================= */
 
 @media (min-width: 720px) {
   main {
@@ -483,6 +933,9 @@ footer {
   .topbar {
     min-height: 72px;
   }
+
+
+  /* Hero */
 
   .hero {
     padding: 120px 24px 58px;
@@ -496,26 +949,55 @@ footer {
     font-size: 13px;
   }
 
-  .hero-meta {
-    max-width: 100%;
-    margin-top: 68px;
-  }
+
+  /* Sections */
 
   .section {
     padding: 96px 24px;
   }
 
+
+  /* Research */
+
   .paper-list {
-    gap: 34px;
+    gap: 24px;
   }
 
+  .paper-entry {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .paper-number {
+    padding-top: 18px;
+
+    font-size: 9px;
+  }
+
+  .paper-summary {
+    grid-template-columns: minmax(0, 1fr) 30px;
+    gap: 24px;
+  }
+
+  .paper-heading h2 {
+    font-size: 17px;
+  }
+
+  .paper-toggle {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  /* Speaking */
+
   .list-card {
-    grid-template-columns: 32px 1fr 38px;
+    grid-template-columns: 32px minmax(0, 1fr) 36px;
     gap: 22px;
   }
 
   .list-card h2 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .round-link {
@@ -523,12 +1005,16 @@ footer {
     height: 36px;
   }
 
+
+  /* Visual */
+
   .visual-section {
     padding: 120px 24px 132px;
   }
 
   .thinking-intro {
     max-width: 620px;
+
     margin-bottom: 42px;
   }
 
@@ -544,10 +1030,16 @@ footer {
     max-width: 700px;
   }
 
+
+  /* Speaking */
+
   .speaking-section {
     margin-inline: 0;
     padding-inline: 24px;
   }
+
+
+  /* Contact */
 
   .contact {
     padding: 110px 24px;
@@ -556,21 +1048,28 @@ footer {
   .contact-grid {
     grid-template-columns: 170px 1fr;
     gap: 60px;
+
     align-items: start;
   }
 
   .contact-copy {
     max-width: 620px;
+
     font-size: 28px;
   }
 }
 
+
+/* =========================
+   HERO TWO-COLUMN
+========================= */
 
 @media (min-width: 840px) {
   .hero-inner {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 280px;
     gap: 52px;
+
     align-items: end;
   }
 
@@ -581,7 +1080,9 @@ footer {
   .hero-portrait {
     width: 100%;
     max-width: none;
+
     margin: 0;
+
     align-self: end;
   }
 
@@ -591,6 +1092,9 @@ footer {
 }
 
 
+/* =========================
+   DESKTOP
+========================= */
 
 @media (min-width: 980px) {
   .hero {
@@ -611,9 +1115,12 @@ footer {
     max-width: 820px;
   }
 
+
+  /* Main two-column section structure */
+
   .section {
     display: grid;
-    grid-template-columns: 170px 1fr;
+    grid-template-columns: 170px minmax(0, 1fr);
     gap: 60px;
   }
 
@@ -625,9 +1132,26 @@ footer {
     grid-column: 2;
   }
 
+
+  /* Research */
+
+  .paper-heading h2 {
+    font-size: 17px;
+  }
+
+  .paper-expanded {
+    max-width: 720px;
+  }
+
+
+  /* Speaking */
+
   .speaking-section {
     display: grid;
   }
+
+
+  /* Visual */
 
   .visual-section {
     padding-left: 0;
@@ -642,13 +1166,19 @@ footer {
     max-width: 760px;
   }
 
+
+  /* Contact */
+
   .contact-grid {
-    grid-template-columns: 170px 1fr;
+    grid-template-columns: 170px minmax(0, 1fr);
     gap: 60px;
   }
 }
 
 
+/* =========================
+   REDUCED MOTION
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -1,36 +1,92 @@
 "use client";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-const papers = [
+type HeroContent =
+  | {
+      type: "paragraph";
+      content: string;
+    }
+  | {
+      type: "bullets";
+      content: string[];
+    };
+
+const heroParagraphs: HeroContent[] = [
+  {
+    type: "paragraph",
+    content:
+      "Geopolitical analyst currently analysing AI-driven labour disruption. Led field research into strategy for Indonesian banks, SEA power generation monopolies and Japan's mature market ventures. Rebuilt at-risk partnerships through informal coalitions worth millions.",
+  },
+
+  {
+    type: "bullets",
+    content: [
+      "Advised 5+ Indonesian banks on market-entry strategy at 24 years old",
+      "Secured $1.5M via coalition-building for SEA power-generation companies",
+      "Rebuilt 3 at-risk Tier 1 APAC partnerships",
+    ],
+  },
+];
+
+type Paper = {
+  no: string;
+  meta: string;
+  title: string;
+  detail?: string;
+  supervisor?: string;
+};
+
+const papers: Paper[] = [
   {
     no: "01",
-    meta: "POLITICAL BEHAVIOUR · INDIA · 2024",
+    meta: "Working Paper · 2026",
     title:
-      "Beyond the Ballot: Reassessing Political Sentiment Measurement Under Information and Access Constraints in Rural Bihar",
+      "Shame, Status, and the Erosion of Tacit Knowledge in the Age of AI",
+
+    detail:
+      "A mixed-methods study examining how AI-driven knowledge externalization is reshaping the value of expertise, judgment, and professional identity at a workforce level — as intuition, timing, and hard-won instinct shift from individually-held skill to something structurally unownable and unteachable. The paper brings a new lens to the existing discourse on labour disruption.",
+
   },
+
   {
     no: "02",
-    meta: "INSTITUTIONAL DESIGN · SINGAPORE · 2024",
+    meta: "Gallup Whitepaper · Gallup · 2025",
     title:
-      "The Architecture of Belonging: Institutional Rules, Social Oversight and the Long-Run Formation of Self-Perception",
+      "Beyond Tradition: Reinventing the Japanese Workplace",
+
+    detail:
+      "Co-authored Gallup's whitepaper on the future of Japan's workforce. Working under Regional Director Puneet Singh, led the policy research and designed the C-suite stakeholder interviews that surfaced the structural gaps shaping how Japanese leadership thinks about the future of work.",
+
+    supervisor:
+      "Regional Director Puneet Singh",
   },
+
+
   {
     no: "03",
-    meta: "GEOPOLITICAL RISK · ASIA · 2025",
+    meta: "Political Science Research Proposal · NUS · 2024",
     title:
-      "Strategic Friction: How Political Risk Alters Market Entry Decisions in High-Barrier Economies",
+      "Crime, Power & the Rural Vote: Understanding Political Support for Criminals in Rural India.",
+
+    detail:
+      "A research proposal examining political support for criminal candidates in rural India, based in Bihar. Presented to a PhD seminar at NUS under the supervision of Professor Guillem Riambau-Armet",
+
+    supervisor:
+      "Professor Guillem Riambau-Armet",
   },
+  
   {
     no: "04",
-    meta: "TECHNOLOGY & LABOUR · 2026",
+    meta: "INDEPENDENT STUDY · NUS University Scholars' Programme · 2024",
     title:
-      "Before Institutions Catch Up: AI-Driven Labour Disruption and Organisational Adaptation",
-  },
-  {
-    no: "05",
-    meta: "DISCOURSE & DECISION-MAKING · 2025",
-    title:
-      "Narratives Under Pressure: Framing, Institutional Trust and Decision-Making in High-Stakes Environments",
+      "The Space Between Permission and Prohibition: Strategic Ambiguity in Politics and Its Lasting Effects on Minorities.",
+
+    detail:
+      "An Ethics Board-approved study examining the effects of strategic ambiguity in policy and formal institutions on queer individuals in Singapore. Supervised by Professor Alberto Pérez Pereiro and graded A",
+
+    supervisor:
+      "Professor Alberto Pérez Pereiro",
   },
 ];
 
@@ -51,6 +107,150 @@ const speaking = [
     title: "Research, Policy and Decision-Making Under Uncertainty",
   },
 ];
+
+
+function ScrambleText() {
+  const [displayContent, setDisplayContent] =
+    useState<HeroContent>(heroParagraphs[0]);
+
+  const [transitioning, setTransitioning] = useState(false);
+
+  const currentIndex = useRef(0);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reducedMotion) return;
+
+    let scrambleInterval: ReturnType<typeof setInterval> | null = null;
+    let startTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    const softenText = (text: string, intensity: number) => {
+      return text
+        .split("")
+        .map((char) => {
+          // Never disturb spaces or punctuation
+          if (
+            char === " " ||
+            char === "." ||
+            char === "," ||
+            char === "-" ||
+            char === "'" ||
+            char === "$"
+          ) {
+            return char;
+          }
+
+          // Only affect a small percentage of characters
+          if (Math.random() < intensity) {
+            return "&";
+          }
+
+          return char;
+        })
+        .join("");
+    };
+
+    const scrambleContent = (
+      target: HeroContent,
+      intensity: number
+    ): HeroContent => {
+      if (target.type === "paragraph") {
+        return {
+          type: "paragraph",
+          content: softenText(target.content, intensity),
+        };
+      }
+
+      return {
+        type: "bullets",
+        content: target.content.map((item) =>
+          softenText(item, intensity)
+        ),
+      };
+    };
+
+    const cycle = () => {
+      const nextIndex =
+        (currentIndex.current + 1) % heroParagraphs.length;
+
+      const target = heroParagraphs[nextIndex];
+
+      setTransitioning(true);
+
+      startTimeout = setTimeout(() => {
+        let step = 0;
+        const totalSteps = 14;
+
+        scrambleInterval = setInterval(() => {
+          step += 1;
+
+          const progress = step / totalSteps;
+
+          // Starts at ~8% disturbed characters,
+          // then gradually resolves to 0%
+          const intensity = 0.08 * (1 - progress);
+
+          setDisplayContent(
+            scrambleContent(target, intensity)
+          );
+
+          if (step >= totalSteps) {
+            if (scrambleInterval) {
+              clearInterval(scrambleInterval);
+            }
+
+            setDisplayContent(target);
+            currentIndex.current = nextIndex;
+            setTransitioning(false);
+          }
+        }, 55);
+      }, 180);
+    };
+
+    const cycleInterval = setInterval(cycle, 6500);
+
+    return () => {
+      clearInterval(cycleInterval);
+
+      if (scrambleInterval) {
+        clearInterval(scrambleInterval);
+      }
+
+      if (startTimeout) {
+        clearTimeout(startTimeout);
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      className={`hero-deck paragraph-shift ${
+        transitioning ? "is-transitioning" : ""
+      }`}
+    >
+      {displayContent.type === "paragraph" ? (
+        <p className="hero-paragraph">
+          {displayContent.content}
+        </p>
+      ) : (
+        <div className="hero-bullets">
+          {displayContent.content.map((item, index) => (
+            <div
+              className="hero-bullet"
+              key={`${index}-${item}`}
+            >
+              <span aria-hidden="true">↳</span>
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function DecisionLandscape() {
   return (
@@ -189,12 +389,9 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">GEOPOLITICAL RISK & STRATEGY</p>
 
-            <h1>Shanmuga Deepika</h1>
+            <h1>Shanmuga Sundaram Deepika</h1>
 
-            <p className="hero-deck">
-              Geopolitical consultant bridging AI-native firms with regulatory compliance. Dual-degree graduate at the National University of Singapore and Sciences Po, interested in how institutions, regulation and technology
-              shape markets, organisations and public life.
-            </p>
+            <ScrambleText />
           </div>
 
           <figure className="hero-portrait">
@@ -219,21 +416,45 @@ export default function Home() {
 
         <div className="paper-list">
           {papers.map((paper) => (
-            <article className="list-card" key={paper.no}>
-              <span className="item-no">{paper.no}</span>
+            <article className="paper-entry" key={paper.no}>
+              <span className="paper-number">{paper.no}</span>
 
-              <div className="item-copy">
-                <p className="item-meta">{paper.meta}</p>
-                <h2>{paper.title}</h2>
-              </div>
+              {paper.detail ? (
+                <details className="paper-accordion">
+                  <summary className="paper-summary">
+                    <div className="paper-heading">
+                      <p className="item-meta">{paper.meta}</p>
+                      <h2>{paper.title}</h2>
+                    </div>
 
-              <button
-                className="round-link"
-                type="button"
-                aria-label={`Open ${paper.title}`}
-              >
-                <span>↗</span>
-              </button>
+                    <span
+                      className="paper-toggle"
+                      aria-hidden="true"
+                    />
+                  </summary>
+
+                  <div className="paper-expanded">
+                    <div className="paper-expanded-row">
+                      <span>Context</span>
+                      <p>{paper.detail}</p>
+                    </div>
+
+                    {paper.supervisor && (
+                      <div className="paper-expanded-row">
+                        <span>Supervision</span>
+                        <p>{paper.supervisor}</p>
+                      </div>
+                    )}
+                  </div>
+                </details>
+              ) : (
+                <div className="paper-static">
+                  <div className="paper-heading">
+                    <p className="item-meta">{paper.meta}</p>
+                    <h2>{paper.title}</h2>
+                  </div>
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -274,7 +495,7 @@ export default function Home() {
 
           <div>
             <p className="contact-copy">
-              For research, strategy, speaking or doctoral conversations.
+              For research, strategy, or speaking roles.
             </p>
 
             <div className="contact-links">
