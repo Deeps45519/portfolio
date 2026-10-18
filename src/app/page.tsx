@@ -93,18 +93,18 @@ const papers: Paper[] = [
 const speaking = [
   {
     no: "01",
-    meta: "PANEL / ROUNDTABLE · 2025",
-    title: "Future of Work and Institutional Adaptation",
+    meta: "Townhall · 2026",
+    title: "Gallup Global Town Hall: Importance of Compelling Narratives in Cross-Cultural Engagements",
   },
   {
     no: "02",
-    meta: "SEMINAR · 2024",
-    title: "Political Behaviour and Measurement Under Field Constraints",
+    meta: "Panel · 2026",
+    title: "NUS-Sciences Po 10th Anniversary Commemoration: Career Readiness & Applying Education in Practice",
   },
   {
     no: "03",
-    meta: "GUEST SESSION · 2025",
-    title: "Research, Policy and Decision-Making Under Uncertainty",
+    meta: "Panel · 2022",
+    title: "Meta, Pass the Vision: Leadership for Early Graduates",
   },
 ];
 
@@ -387,7 +387,7 @@ export default function Home() {
         <div className="hero-inner">
 
           <div className="hero-copy">
-            <p className="eyebrow">GEOPOLITICAL RISK & STRATEGY</p>
+            <p className="eyebrow">AI Governance & Geopolitical Risk</p>
 
             <h1>Shanmuga Sundaram Deepika</h1>
 
