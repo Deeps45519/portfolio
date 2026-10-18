@@ -42,7 +42,7 @@ const papers: Paper[] = [
     no: "01",
     meta: "Working Paper · 2026",
     title:
-      "Shame, Status, and the Erosion of Tacit Knowledge in the Age of AI",
+      "Staffing the State for Frontier AI: Expertise, Capacity, and the Negotiation of Legitimacy",
 
     detail:
       "A mixed-methods study examining how AI-driven knowledge externalization is reshaping the value of expertise, judgment, and professional identity at a workforce level — as intuition, timing, and hard-won instinct shift from individually-held skill to something structurally unownable and unteachable. The paper brings a new lens to the existing discourse on labour disruption.",
